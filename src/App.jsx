@@ -28,7 +28,7 @@ function App() {
       img: design
     }
   ]);
-
+  const [showAllArticle, setShowAllArticle]= useState(false)
   const [itemPerPage,setItemPerapge] = useState(1)
   const [page, setPage] = useState({
     startPage: 0,
@@ -61,12 +61,32 @@ function App() {
       }else{
         setcounter(counter+1);
       }
+    }else if(type === 'all'){
+      setShowAllArticle(!showAllArticle)
+      setcounter(1)
     }
     }
   
   return (
     <>
-      <article className="aboutme">
+      {showAllArticle?
+      <article className="allArticle">
+        {activeArticle.map((article) => {
+          return (
+            <div key={article.articleNo}>
+              <div className='article'>
+                <h1>{article.title}</h1>
+                <p>{article.discription}</p>
+                <div className='image'>
+                  <img src={article.img} height='400' width='320' />
+                </div>
+                <p>{article.discription2}</p>
+              </div>
+            </div>
+          )
+        })}
+      </article>:
+        <article className="singleArticle">
         {activeArticle.slice(page.startPage, page.endPage).map((article) => {
           return (
             <div key={article.articleNo}>
@@ -82,8 +102,10 @@ function App() {
           )
         })}
       </article>
+      }
       <div className="button">
         <button onClick={() => buttonClick('pre')}> Previous </button>
+        <button onClick={() => buttonClick('all')}>All</button>
         <button onClick={() => buttonClick('next')}>Next</button>
       </div>
     </>

@@ -30,6 +30,7 @@ function App() {
   ]);
   const [showAllArticle, setShowAllArticle]= useState(false)
   const [itemPerPage,setItemPerapge] = useState(1)
+  const [btText,setBtText] = useState('View All')
   const [page, setPage] = useState({
     startPage: 0,
     endPage: itemPerPage
@@ -64,6 +65,7 @@ function App() {
     }else if(type === 'all'){
       setShowAllArticle(!showAllArticle)
       setcounter(1)
+      setBtText('Hide All')
     }
     }
   
@@ -105,7 +107,7 @@ function App() {
       }
       <div className="button">
         <button onClick={() => buttonClick('pre')}> Previous </button>
-        <button onClick={() => buttonClick('all')}>All</button>
+        <button onClick={() => buttonClick('all')}>{btText}</button>
         <button onClick={() => buttonClick('next')}>Next</button>
       </div>
     </>
